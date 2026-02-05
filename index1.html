@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>หน้าลงทะเบียน</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-image:
+        linear-gradient(
+            rgba(155, 89, 182, 0.6),
+            rgba(255, 255, 255, 0.8)
+        ),
+        url("รูป/ดอกไม้.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.form-container {
+    background-color: rgba(255,255,255,0.95);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 350px;
+    z-index: 10;
+}
+
+.school-logo {
+    display: block;
+    margin: 0 auto 15px;
+    width: 80px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 18px;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+input {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+    background-color: #00ee28;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.sakura {
+    position: fixed;
+    top: -20px;
+    width: 14px;
+    height: 14px;
+    background: pink;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(45deg);
+    opacity: 0.8;
+    animation: fall linear infinite;
+}
+
+.sakura:nth-child(1) { left: 10%; animation-duration: 6s; }
+.sakura:nth-child(2) { left: 25%; animation-duration: 8s; }
+.sakura:nth-child(3) { left: 40%; animation-duration: 7s; }
+.sakura:nth-child(4) { left: 55%; animation-duration: 9s; }
+.sakura:nth-child(5) { left: 70%; animation-duration: 6.5s; }
+.sakura:nth-child(6) { left: 85%; animation-duration: 8.5s; }
+
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="sakura"></div>
+<div class="sakura"></div>
+<div class="sakura"></div>
+<div class="sakura"></div>
+<div class="sakura"></div>
+<div class="sakura"></div>
+
+<div class="form-container">
+    <img src="รูป/images.jpg" class="school-logo">
+    <h2>ลงทะเบียน</h2>
+
+    <!-- ⭐ เชื่อมไปหน้าสำเร็จ -->
+    <form onsubmit="saveAndRedirect(event)">
+        <div class="form-group">
+            <input type="text" placeholder="ชื่อ-สกุล" required>
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="ชั้น" required>
+        </div>
+        <div class="form-group">
+            <input type="number" placeholder="เลขที่" required>
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="เลขเครื่องคอมพิวเตอร์" required>
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="รหัสนักเรียน" required>
+        </div>
+        <div class="form-group">
+            <input type="date" required>
+        </div>
+        <div class="form-group">
+            <!-- ⭐ ตัวนี้ใช้ตั้งเวลา logout -->
+            <input type="datetime-local" id="logoutTime" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="ลงทะเบียน">
+        </div>
+    </form>
+</div>
+
+<script>
+function saveAndRedirect(event) {
+    event.preventDefault();
+
+    const logoutTime = document.getElementById("logoutTime").value;
+
+    if (!logoutTime) {
+        alert("กรุณาเลือกวันและเวลา");
+        return;
+    }
+
+    // เก็บเวลาไว้ให้หน้าสำเร็จใช้
+    localStorage.setItem("logoutTime", logoutTime);
+
+    // ไปหน้าสำเร็จ
+    window.location.href = "สำเร็จ.html";
+}
+</script>
+
+</body>
+</html>

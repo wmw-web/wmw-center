@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าสำเร็จ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+
+            /* สีพื้น + รูปพื้นหลังจาง */
+            background-image:
+                linear-gradient(
+                    rgba(155, 89, 182, 0.6),
+                    rgba(255, 255, 255, 0.7)
+                ),
+                url("รูป/ดอกไม้.png");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .alert-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        h2 {
+            color: #28a745;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="alert-container">
+        <h2>ลงทะเบียนสำเร็จ!</h2>
+        <p>ขอบคุณที่ลงทะเบียน กรุณารอแจ้งเตือนแล้วล็อกเอ้าออกตามเวลาที่ตั้งไว้</p>
+        <button class="btn-success" onclick="redirectToMainPage()">ล็อกเอ้า</button>
+    </div>
+
+    <script>
+        function checkLogoutTime() {
+            const logoutTimeString = localStorage.getItem("logoutTime");
+
+            if (!logoutTimeString) {
+                alert("ไม่มีข้อมูลเวลา! กรุณาลองใหม่.");
+                return;
+            }
+
+            const logoutTime = new Date(logoutTimeString);
+            const currentTime = new Date();
+            const timeDifference = logoutTime - currentTime;
+
+            if (timeDifference <= 0) {
+                alert("ถึงเวลาที่ตั้งไว้แล้ว! กรุณาล็อกเอ้า");
+            } else {
+                setTimeout(function () {
+                    alert("ถึงเวลาที่ตั้งไว้แล้ว! กรุณาล็อกเอ้า");
+                }, timeDifference);
+            }
+        }
+
+        window.onload = function () {
+            checkLogoutTime();
+        };
+
+        function redirectToMainPage() {
+            window.location.href = "ล็อกเอ้า.html";
+        }
+    </script>
+
+</body>
+</html>
