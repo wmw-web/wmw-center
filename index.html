@@ -11,10 +11,7 @@ body{
   background: linear-gradient(
       rgba(155, 89, 182, 0.6),
       rgba(255, 255, 255, 0.8)
-    ),
-    url("image/ddd.png");
-  background-size: cover;
-  background-position: center;
+    );
   min-height: 100vh;
   margin: 0;
   display: flex;
@@ -29,12 +26,6 @@ body{
   max-width: 380px;
   border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0,0,0,.25);
-}
-
-.form-container img{
-  display:block;
-  margin:0 auto 10px;
-  width:80px;
 }
 
 h2{
@@ -64,29 +55,21 @@ button{
 button:hover{
   background:#00a843;
 }
+
 .stats-btn{
   margin-top:8px;
-  width:100%;
-  padding:10px;
   background:#2979ff;
-  color:#fff;
-  border:none;
-  border-radius:8px;
-  font-size:16px;
-  cursor:pointer;
 }
 
 .stats-btn:hover{
   background:#1c54b2;
 }
-
 </style>
 </head>
 
 <body>
 
 <div class="form-container">
-  <img src="image/images.jpg" alt="logo">
   <h2>ฟอร์มเช็คชื่อเข้าใช้งาน</h2>
 
   <form id="checkinForm">
@@ -95,17 +78,11 @@ button:hover{
     <input name="number" placeholder="เลขที่" required>
     <input name="computer" placeholder="เลขเครื่องคอมพิวเตอร์" required>
     <input name="student_id" placeholder="รหัสนักเรียน" required>
-
-    <!-- 🔹 ช่องวันที่ พร้อมคำว่า วันที่ -->
-    <input name="date" type="date" placeholder="วันที่" required>
-
+    <input name="date" type="date" required>
     <input name="logout_time" type="datetime-local" required>
 
     <button type="submit">ลงทะเบียน</button>
-<button type="button" class="stats-btn" onclick="goToStats()">
-  เช็คสถิติ
-</button>
-
+    <button type="button" class="stats-btn" onclick="goToStats()">เช็คสถิติ</button>
   </form>
 </div>
 
@@ -123,23 +100,23 @@ document.getElementById("checkinForm").addEventListener("submit", function(e){
     logout_time: this.logout_time.value
   };
 
-  // ✅ เก็บเวลาออกไว้ใช้ในหน้าสำเร็จ
-  localStorage.setItem("logoutTime", this.logout_time.value);
-
   fetch("https://script.google.com/macros/s/AKfycbwTwPPzOU9EBo713VRitfhPU7EVlBvnXweUTdpotZlOV5N_nnyvs_VGVsTBmnNhIx9D/exec", {
     method: "POST",
     body: JSON.stringify(formData)
   })
-  .then(res => res.json())
-  .then(data => {
+  .then(() => {
     window.location.href = "success.html";
-  });
+  })
+  .catch(() => alert("ส่งข้อมูลไม่สำเร็จ"));
 });
+
 function goToStats(){
-  window.location.href = "https://script.google.com/macros/s/AKfycbzMw9znAhjC_G06IJ6Lwe0p5oe4YlC5cswqWfCAdBC58IgHNGGKzVkEDxvt4BfKlcU/exec";
+  window.open(
+    "https://script.google.com/macros/s/AKfycbzMw9znAhjC_G06IJ6Lwe0p5oe4YlC5cswqWfCAdBC58IgHNGGKzVkEDxvt4BfKlcU/exec",
+    "_blank"
+  );
 }
 </script>
-
 
 </body>
 </html>
